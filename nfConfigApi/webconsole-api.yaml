@@ -298,12 +298,28 @@ components:
           type: string
         dnsIpv4:
           type: string
+          description: IPv4 DNS server address for the UEs of this DNN. An IPv6-only DNN sets it to the empty string.
         pcscfIpv4:
           type: string
         ueSubnet:
           type: string
+          description: IPv4 UE address pool in CIDR notation, for example 172.250.0.0/16. An IPv6-only DNN sets it to the empty string.
         mtu:
           type: integer
+        ueSubnetIpv6:
+          type: string
+          description: IPv6 pool in CIDR notation, for example 2001:db8:100::/56, from which one prefix of ueIpv6PrefixLength bits is assigned to each IPv6 or IPv4v6 PDU session. Absent when the DNN has no IPv6 sessions.
+        ueIpv6PrefixLength:
+          type: integer
+          minimum: 1
+          maximum: 64
+          description: Length of the prefix assigned to each UE out of ueSubnetIpv6. It must not be shorter than the ueSubnetIpv6 prefix length. When absent, 64 is used.
+        dnsIpv6:
+          type: string
+          description: IPv6 DNS server address for the UEs of this DNN.
+        pcscfIpv6:
+          type: string
+          description: IPv6 P-CSCF address for the UEs of this DNN.
     Upf:
       type: object
       required:

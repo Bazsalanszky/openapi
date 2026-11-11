@@ -28,11 +28,21 @@ var _ openapi.MappedNullable = &IpDomain{}
 
 // IpDomain struct for IpDomain
 type IpDomain struct {
-	DnnName              string  `json:"dnnName" yaml:"dnnName"`
-	DnsIpv4              string  `json:"dnsIpv4" yaml:"dnsIpv4"`
-	PcscfIpv4            *string `json:"pcscfIpv4,omitempty" yaml:"pcscfIpv4,omitempty"`
-	UeSubnet             string  `json:"ueSubnet" yaml:"ueSubnet"`
-	Mtu                  int32   `json:"mtu" yaml:"mtu"`
+	DnnName string `json:"dnnName" yaml:"dnnName"`
+	// IPv4 DNS server address for the UEs of this DNN. An IPv6-only DNN sets it to the empty string.
+	DnsIpv4   string  `json:"dnsIpv4" yaml:"dnsIpv4"`
+	PcscfIpv4 *string `json:"pcscfIpv4,omitempty" yaml:"pcscfIpv4,omitempty"`
+	// IPv4 UE address pool in CIDR notation, for example 172.250.0.0/16. An IPv6-only DNN sets it to the empty string.
+	UeSubnet string `json:"ueSubnet" yaml:"ueSubnet"`
+	Mtu      int32  `json:"mtu" yaml:"mtu"`
+	// IPv6 pool in CIDR notation, for example 2001:db8:100::/56, from which one prefix of ueIpv6PrefixLength bits is assigned to each IPv6 or IPv4v6 PDU session. Absent when the DNN has no IPv6 sessions.
+	UeSubnetIpv6 *string `json:"ueSubnetIpv6,omitempty" yaml:"ueSubnetIpv6,omitempty"`
+	// Length of the prefix assigned to each UE out of ueSubnetIpv6. It must not be shorter than the ueSubnetIpv6 prefix length. When absent, 64 is used.
+	UeIpv6PrefixLength *int32 `json:"ueIpv6PrefixLength,omitempty" yaml:"ueIpv6PrefixLength,omitempty"`
+	// IPv6 DNS server address for the UEs of this DNN.
+	DnsIpv6 *string `json:"dnsIpv6,omitempty" yaml:"dnsIpv6,omitempty"`
+	// IPv6 P-CSCF address for the UEs of this DNN.
+	PcscfIpv6            *string `json:"pcscfIpv6,omitempty" yaml:"pcscfIpv6,omitempty"`
 	AdditionalProperties map[string]any
 }
 
@@ -187,6 +197,134 @@ func (o *IpDomain) SetMtu(v int32) {
 	o.Mtu = v
 }
 
+// GetUeSubnetIpv6 returns the UeSubnetIpv6 field value if set, zero value otherwise.
+func (o *IpDomain) GetUeSubnetIpv6() string {
+	if o == nil || openapi.IsNil(o.UeSubnetIpv6) {
+		var ret string
+		return ret
+	}
+	return *o.UeSubnetIpv6
+}
+
+// GetUeSubnetIpv6Ok returns a tuple with the UeSubnetIpv6 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IpDomain) GetUeSubnetIpv6Ok() (*string, bool) {
+	if o == nil || openapi.IsNil(o.UeSubnetIpv6) {
+		return nil, false
+	}
+	return o.UeSubnetIpv6, true
+}
+
+// HasUeSubnetIpv6 returns a boolean if a field has been set.
+func (o *IpDomain) HasUeSubnetIpv6() bool {
+	if o != nil && !openapi.IsNil(o.UeSubnetIpv6) {
+		return true
+	}
+
+	return false
+}
+
+// SetUeSubnetIpv6 gets a reference to the given string and assigns it to the UeSubnetIpv6 field.
+func (o *IpDomain) SetUeSubnetIpv6(v string) {
+	o.UeSubnetIpv6 = &v
+}
+
+// GetUeIpv6PrefixLength returns the UeIpv6PrefixLength field value if set, zero value otherwise.
+func (o *IpDomain) GetUeIpv6PrefixLength() int32 {
+	if o == nil || openapi.IsNil(o.UeIpv6PrefixLength) {
+		var ret int32
+		return ret
+	}
+	return *o.UeIpv6PrefixLength
+}
+
+// GetUeIpv6PrefixLengthOk returns a tuple with the UeIpv6PrefixLength field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IpDomain) GetUeIpv6PrefixLengthOk() (*int32, bool) {
+	if o == nil || openapi.IsNil(o.UeIpv6PrefixLength) {
+		return nil, false
+	}
+	return o.UeIpv6PrefixLength, true
+}
+
+// HasUeIpv6PrefixLength returns a boolean if a field has been set.
+func (o *IpDomain) HasUeIpv6PrefixLength() bool {
+	if o != nil && !openapi.IsNil(o.UeIpv6PrefixLength) {
+		return true
+	}
+
+	return false
+}
+
+// SetUeIpv6PrefixLength gets a reference to the given int32 and assigns it to the UeIpv6PrefixLength field.
+func (o *IpDomain) SetUeIpv6PrefixLength(v int32) {
+	o.UeIpv6PrefixLength = &v
+}
+
+// GetDnsIpv6 returns the DnsIpv6 field value if set, zero value otherwise.
+func (o *IpDomain) GetDnsIpv6() string {
+	if o == nil || openapi.IsNil(o.DnsIpv6) {
+		var ret string
+		return ret
+	}
+	return *o.DnsIpv6
+}
+
+// GetDnsIpv6Ok returns a tuple with the DnsIpv6 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IpDomain) GetDnsIpv6Ok() (*string, bool) {
+	if o == nil || openapi.IsNil(o.DnsIpv6) {
+		return nil, false
+	}
+	return o.DnsIpv6, true
+}
+
+// HasDnsIpv6 returns a boolean if a field has been set.
+func (o *IpDomain) HasDnsIpv6() bool {
+	if o != nil && !openapi.IsNil(o.DnsIpv6) {
+		return true
+	}
+
+	return false
+}
+
+// SetDnsIpv6 gets a reference to the given string and assigns it to the DnsIpv6 field.
+func (o *IpDomain) SetDnsIpv6(v string) {
+	o.DnsIpv6 = &v
+}
+
+// GetPcscfIpv6 returns the PcscfIpv6 field value if set, zero value otherwise.
+func (o *IpDomain) GetPcscfIpv6() string {
+	if o == nil || openapi.IsNil(o.PcscfIpv6) {
+		var ret string
+		return ret
+	}
+	return *o.PcscfIpv6
+}
+
+// GetPcscfIpv6Ok returns a tuple with the PcscfIpv6 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IpDomain) GetPcscfIpv6Ok() (*string, bool) {
+	if o == nil || openapi.IsNil(o.PcscfIpv6) {
+		return nil, false
+	}
+	return o.PcscfIpv6, true
+}
+
+// HasPcscfIpv6 returns a boolean if a field has been set.
+func (o *IpDomain) HasPcscfIpv6() bool {
+	if o != nil && !openapi.IsNil(o.PcscfIpv6) {
+		return true
+	}
+
+	return false
+}
+
+// SetPcscfIpv6 gets a reference to the given string and assigns it to the PcscfIpv6 field.
+func (o *IpDomain) SetPcscfIpv6(v string) {
+	o.PcscfIpv6 = &v
+}
+
 func (o IpDomain) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -207,6 +345,18 @@ func (o IpDomain) ToMap() (map[string]any, error) {
 	}
 	toSerialize["ueSubnet"] = o.UeSubnet
 	toSerialize["mtu"] = o.Mtu
+	if !openapi.IsNil(o.UeSubnetIpv6) {
+		toSerialize["ueSubnetIpv6"] = o.UeSubnetIpv6
+	}
+	if !openapi.IsNil(o.UeIpv6PrefixLength) {
+		toSerialize["ueIpv6PrefixLength"] = o.UeIpv6PrefixLength
+	}
+	if !openapi.IsNil(o.DnsIpv6) {
+		toSerialize["dnsIpv6"] = o.DnsIpv6
+	}
+	if !openapi.IsNil(o.PcscfIpv6) {
+		toSerialize["pcscfIpv6"] = o.PcscfIpv6
+	}
 	return toSerialize, nil
 }
 
@@ -253,6 +403,10 @@ func (o *IpDomain) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "pcscfIpv4")
 		delete(additionalProperties, "ueSubnet")
 		delete(additionalProperties, "mtu")
+		delete(additionalProperties, "ueSubnetIpv6")
+		delete(additionalProperties, "ueIpv6PrefixLength")
+		delete(additionalProperties, "dnsIpv6")
+		delete(additionalProperties, "pcscfIpv6")
 		o.AdditionalProperties = additionalProperties
 	}
 
